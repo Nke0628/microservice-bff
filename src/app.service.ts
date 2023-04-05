@@ -1,19 +1,24 @@
 import { Injectable, OnModuleInit, Inject } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
-import { AppServiceClient, SamepleData, SampleDataById } from './proto/sample';
+import {
+  EvaluationServiceClient,
+  FetchMultiTermsRequest,
+  FetchMultiTermsResponese,
+} from './proto/sample';
 
 @Injectable()
 export class AppService implements OnModuleInit {
-  private sampleService: AppServiceClient;
+  private sampleService: EvaluationServiceClient;
 
-  constructor(@Inject('SAMPLE_PACKAGE') private client: ClientGrpc) {}
+  constructor(@Inject('EVALUATION_PACKAGE') private client: ClientGrpc) {}
 
   onModuleInit() {
-    this.sampleService = this.client.getService<AppServiceClient>('AppService');
+    this.sampleService =
+      this.client.getService<EvaluationServiceClient>('EvaluationService');
   }
 
-  getSampleData(): Observable<SamepleData> {
-    return this.sampleService.findOne({ id: 1 } as SampleDataById);
+  getSampleData(): Observable<FetchMultiTermsResponese> {
+    return this.sampleService.fetchMultiTerms({} as FetchMultiTermsRequest);
   }
 }
