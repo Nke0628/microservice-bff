@@ -5,10 +5,10 @@ import {
   EvaluationServiceClient,
   FetchAllRequest,
   FetchAllResponse,
-} from './proto/multiBusinessTerm';
+} from 'src/proto/multiBusinessTerm';
 
 @Injectable()
-export class AppService implements OnModuleInit {
+export class MultiTermService implements OnModuleInit {
   private sampleService: EvaluationServiceClient;
 
   constructor(@Inject('EVALUATION_PACKAGE') private client: ClientGrpc) {}

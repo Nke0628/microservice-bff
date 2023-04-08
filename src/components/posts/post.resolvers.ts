@@ -1,22 +1,24 @@
 import { Query, Resolver } from '@nestjs/graphql';
-import { PostModel } from './interfaces/post.model';
+import { MulritTerms } from './interfaces/MulritTerms.model';
+import { MultiTermService } from './multi-term.service';
 
 @Resolver((of) => {
-  PostModel;
+  MulritTerms;
 })
 export class PostsResolver {
-  constructor() {}
-  @Query(() => [PostModel], { name: 'posts', nullable: true })
-  async getPosts() {
-    return [
-      {
-        id: 1,
-        title: 'テスト',
-      },
-      {
-        id: 2,
-        title: 'テスト2',
-      },
-    ];
+  constructor(private readonly multi: MultiTermService) {}
+  @Query(() => MulritTerms, { name: 'multi_terms', nullable: true })
+  async getMultiTerms() {
+    // return [
+    //   {
+    //     id: 1,
+    //     title: 'テスト',
+    //   },
+    //   {
+    //     id: 2,
+    //     title: 'テスト2',
+    //   },
+    // ];
+    return this.multi.getSampleData();
   }
 }
