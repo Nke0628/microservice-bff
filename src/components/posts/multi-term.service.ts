@@ -2,20 +2,21 @@ import { Injectable, OnModuleInit, Inject } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 import {
-  EvaluationServiceClient,
   FetchAllRequest,
   FetchAllResponse,
-} from 'src/proto/multiBusinessTerm';
+  MultiEvaluationServiceClient,
+} from 'src/proto/multi_evaluation';
 
 @Injectable()
 export class MultiTermService implements OnModuleInit {
-  private sampleService: EvaluationServiceClient;
+  private sampleService: MultiEvaluationServiceClient;
 
   constructor(@Inject('EVALUATION_PACKAGE') private client: ClientGrpc) {}
 
   onModuleInit() {
-    this.sampleService =
-      this.client.getService<EvaluationServiceClient>('EvaluationService');
+    this.sampleService = this.client.getService<MultiEvaluationServiceClient>(
+      'MultiEvaluationService',
+    );
   }
 
   getSampleData(): Observable<FetchAllRequest> {

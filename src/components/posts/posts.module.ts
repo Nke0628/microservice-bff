@@ -13,8 +13,8 @@ import { PostsResolver } from './post.resolvers';
         transport: Transport.GRPC,
         options: {
           url: 'localhost:5000',
-          package: 'evaluation',
-          protoPath: join(__dirname, '../../proto/multiBusinessTerm.proto'),
+          package: 'multi_evaluation.v1',
+          protoPath: join(__dirname, '../../proto/multi_evaluation.proto'),
         },
       },
     ]),
