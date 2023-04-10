@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
-import { MultiTermController } from './multi-term.controller';
-import { MultiTermService } from './multi-term.service';
-import { PostsResolver } from './post.resolvers';
+import { MultiTermController } from './controller/multi-business-term.controller';
+import { MultiTermService } from './infrastructure/multi-term.service';
+import { PostsResolver } from './controller/multi-business-term.resolvers';
 
 @Module({
   imports: [

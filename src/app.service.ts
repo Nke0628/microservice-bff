@@ -5,7 +5,7 @@ import {
   FetchAllRequest,
   FetchAllResponse,
   MultiEvaluationServiceClient,
-} from './proto/multi_evaluation';
+} from './proto/genrated/multi_evaluation';
 
 @Injectable()
 export class AppService implements OnModuleInit {

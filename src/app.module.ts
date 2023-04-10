@@ -6,7 +6,7 @@ import { graphql } from 'graphql';
 import * as path from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PostsModule } from './components/posts/posts.module';
+import { PostsModule } from './muti-evaluation/multi-business-term/posts.module';
 
 @Module({
   imports: [

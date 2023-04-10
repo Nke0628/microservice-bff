@@ -12,6 +12,5 @@ type MulritTerms {
 }
 
 type Query {
-  multi_terms(orederBy: Boolean!, take: Float!): [MulritTerms!]
-  multi_terms_test(orederBy: Boolean!, take: Float!): [MulritTerms!]
+  multiBusinessTerms(orederBy: Boolean!, take: Float!): [MulritTerms!]
 }
