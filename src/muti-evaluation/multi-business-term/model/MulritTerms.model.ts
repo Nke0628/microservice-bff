@@ -19,4 +19,7 @@ export class MulritTerms {
 
   @Field((type) => String)
   multiTermEndDate: string;
+
+  @Field((type) => Boolean)
+  isCurrentTerm: boolean;
 }
