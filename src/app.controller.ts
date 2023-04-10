@@ -7,7 +7,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  call(): Observable<any> {
-    return this.appService.getSampleData();
+  call(): any {
+    return '';
   }
 }

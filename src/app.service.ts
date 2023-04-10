@@ -18,7 +18,7 @@ export class AppService implements OnModuleInit {
       this.client.getService<MultiEvaluationServiceClient>('EvaluationService');
   }
 
-  getSampleData(): Observable<FetchAllRequest> {
-    return this.sampleService.fetchAll({} as FetchAllResponse);
+  getSampleData(): Observable<FetchAllResponse> {
+    return this.sampleService.fetchAll({ take: 1, orderBy: true });
   }
 }

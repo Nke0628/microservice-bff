@@ -14,7 +14,10 @@ import { PostsResolver } from './post.resolvers';
         options: {
           url: 'localhost:5000',
           package: 'multi_evaluation.v1',
-          protoPath: join(__dirname, '../../proto/multi_evaluation.proto'),
+          protoPath: join(
+            __dirname,
+            '../../proto/multi_evaluation/v1/multi_evaluation.proto',
+          ),
         },
       },
     ]),

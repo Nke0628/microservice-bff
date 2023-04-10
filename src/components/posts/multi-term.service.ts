@@ -19,7 +19,7 @@ export class MultiTermService implements OnModuleInit {
     );
   }
 
-  getSampleData(): Observable<FetchAllRequest> {
-    return this.sampleService.fetchAll({} as FetchAllResponse);
+  getSampleData(req: FetchAllRequest): Observable<FetchAllResponse> {
+    return this.sampleService.fetchAll(req);
   }
 }

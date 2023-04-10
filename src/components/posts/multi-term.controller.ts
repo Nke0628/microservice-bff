@@ -8,6 +8,6 @@ export class MultiTermController {
 
   @Get()
   call(): Observable<any> {
-    return this.mutli.getSampleData();
+    return this.mutli.getSampleData({ take: 2, orderBy: true });
   }
 }
