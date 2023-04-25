@@ -4,6 +4,8 @@ package multi_evaluation.v1;
 
 service MultiEvaluationService {
     rpc FetchAll(FetchAllRequest)returns(FetchAllResponse){}
+    rpc FetchByTermIdAndUserId(FetchByTermIdAndUserIdRequst)returns(FetchByTermIdAndUserIdResponse){}
+    rpc SubmitMultiEvaluation(SubmitMultiEvaluationRequest)returns(SubmitMultiEvaluationResponse){}
 }
 
 message MultiBusinessTerm{
@@ -16,6 +18,14 @@ message MultiBusinessTerm{
     bool is_current_term = 7;
 }
 
+message MultiEvaluation{
+    int32 user_id = 1;
+    int32 target_user_id = 2;
+    int32 multi_term_id = 3;
+    int32 score = 4;
+    string comment = 5;
+}
+
 message FetchAllRequest{
     int32 take  = 1;
     bool order_by = 2;
@@ -24,5 +34,29 @@ message FetchAllRequest{
 message FetchAllResponse{
     int32 status = 1;
     string error = 2;
-    repeated MultiBusinessTerm multi_business_term_list = 3;
+    repeated MultiBusinessTerm data = 3;
+}
+
+message FetchByTermIdAndUserIdRequst{
+    int32 termid  = 1;
+    int32 userId = 2;
+}
+
+message FetchByTermIdAndUserIdResponse{
+    int32 status = 1;
+    string error = 2;
+    repeated MultiEvaluation data = 3;
+}
+
+message SubmitMultiEvaluationRequest{
+    int32 user_id = 1;
+    int32 target_user_id = 2;
+    int32 multi_term_id = 3;
+    int32 score = 4;
+    string comment = 5;
+}
+
+message SubmitMultiEvaluationResponse{
+    int32 status = 1;
+    string error = 2;
 }

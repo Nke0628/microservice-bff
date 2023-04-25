@@ -17,6 +17,6 @@ export class PostsResolver {
     const res: FetchAllResponse = await lastValueFrom(
       this.multi.getSampleData({ take: take, orderBy: orderBy }),
     );
-    return res.multiBusinessTermList;
+    return res.data;
   }
 }

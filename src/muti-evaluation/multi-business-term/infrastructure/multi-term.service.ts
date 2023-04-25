@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import {
   FetchAllRequest,
   FetchAllResponse,
+  FetchByTermIdAndUserIdRequst,
+  FetchByTermIdAndUserIdResponse,
   MultiEvaluationServiceClient,
 } from 'src/proto/genrated/multi_evaluation';
 
@@ -21,5 +23,11 @@ export class MultiTermService implements OnModuleInit {
 
   getSampleData(req: FetchAllRequest): Observable<FetchAllResponse> {
     return this.sampleService.fetchAll(req);
+  }
+
+  getTest(
+    req: FetchByTermIdAndUserIdRequst,
+  ): Observable<FetchByTermIdAndUserIdResponse> {
+    return this.sampleService.fetchByTermIdAndUserId(req);
   }
 }

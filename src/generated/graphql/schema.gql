@@ -12,6 +12,15 @@ type MulritTerms {
   multiTermStartDate: String!
 }
 
+type MultiEvaluation {
+  comment: String!
+  multiTermId: String!
+  score: Float!
+  taergetUserId: Float!
+  userId: Float!
+}
+
 type Query {
   multiBusinessTerms(orederBy: Boolean!, take: Float!): [MulritTerms!]
+  multiEvaluation: [MultiEvaluation!]
 }

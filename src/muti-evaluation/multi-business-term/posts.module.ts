@@ -4,6 +4,7 @@ import { join } from 'path';
 import { MultiTermController } from './controller/multi-business-term.controller';
 import { MultiTermService } from './infrastructure/multi-term.service';
 import { PostsResolver } from './controller/multi-business-term.resolvers';
+import { MultiEvaluationResolver } from './controller/multi-evaluation.resolvers';
 
 @Module({
   imports: [
@@ -23,6 +24,6 @@ import { PostsResolver } from './controller/multi-business-term.resolvers';
     ]),
   ],
   controllers: [MultiTermController],
-  providers: [PostsResolver, MultiTermService],
+  providers: [PostsResolver, MultiTermService, MultiEvaluationResolver],
 })
 export class PostsModule {}
