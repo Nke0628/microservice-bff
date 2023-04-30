@@ -1,11 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
-import { MultiTermController } from './controller/multi-business-term.controller';
-import { MultiTermService } from './infrastructure/multi-term.service';
-import { PostsResolver } from './controller/multi-business-term.resolvers';
-import { MultiEvaluationResolver } from './controller/multi-evaluation.resolvers';
-
+import { UserRepostitory } from './infrastructure/multi-evaluation.repository';
 @Module({
   imports: [
     ClientsModule.register([
@@ -23,7 +19,7 @@ import { MultiEvaluationResolver } from './controller/multi-evaluation.resolvers
       },
     ]),
   ],
-  controllers: [MultiTermController],
-  providers: [PostsResolver, MultiTermService, MultiEvaluationResolver],
+  providers: [UserRepostitory],
+  exports: [UserRepostitory],
 })
-export class PostsModule {}
+export class UserModule {}

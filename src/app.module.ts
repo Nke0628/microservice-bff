@@ -2,25 +2,22 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { graphql } from 'graphql';
 import * as path from 'path';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthGuard } from './auth/auth.guard';
-import { PostsModule } from './muti-evaluation/multi-business-term/posts.module';
+import { MultiBusinessTermModule } from './muti-evaluation/multi-business-term/multi-business-term.module';
+import { MultiEvaluationModule } from './muti-evaluation/multi-evaluation/multi-evaluation.module';
+import { UserModule } from './muti-evaluation/user/multi-evaluation.module';
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      autoSchemaFile: path.join(
-        process.cwd(),
-        'src/generated/graphql/schema.gql',
-      ),
+      autoSchemaFile: path.join('src/generated/graphql/schema.gql'),
       sortSchema: true,
       driver: ApolloDriver,
     }),
-    PostsModule,
+    UserModule,
+    MultiBusinessTermModule,
+    MultiEvaluationModule,
   ],
   providers: [
     {

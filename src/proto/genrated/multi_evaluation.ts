@@ -15,11 +15,18 @@ export interface MultiBusinessTerm {
 }
 
 export interface MultiEvaluation {
+  id: number;
   userId: number;
   targetUserId: number;
   multiTermId: number;
   score: number;
-  comment: string;
+  goodComment: string;
+  improvementComment: string;
+}
+
+export interface User {
+  id: number;
+  name: string;
 }
 
 export interface FetchAllRequest {
@@ -57,21 +64,55 @@ export interface SubmitMultiEvaluationResponse {
   error: string;
 }
 
+export interface FindUserByIdRequest {
+  userId: number;
+}
+
+export interface FindUserByIdResponse {
+  status: number;
+  error: string;
+  data: User | undefined;
+}
+
+export interface FetchUsersByIdsRequest {
+  userIds: number[];
+}
+
+export interface FetchUsersByIdsResponse {
+  status: number;
+  error: string;
+  data: User[];
+}
+
 export const MULTI_EVALUATION_V1_PACKAGE_NAME = 'multi_evaluation.v1';
 
 export interface MultiEvaluationServiceClient {
+  /** MultiBusinessTerm */
+
   fetchAll(request: FetchAllRequest): Observable<FetchAllResponse>;
 
   fetchByTermIdAndUserId(
     request: FetchByTermIdAndUserIdRequst,
   ): Observable<FetchByTermIdAndUserIdResponse>;
 
+  /** MultiEvaluation */
+
   submitMultiEvaluation(
     request: SubmitMultiEvaluationRequest,
   ): Observable<SubmitMultiEvaluationResponse>;
+
+  /** User */
+
+  findUserById(request: FindUserByIdRequest): Observable<FindUserByIdResponse>;
+
+  fetchUsersByIds(
+    request: FetchUsersByIdsRequest,
+  ): Observable<FetchUsersByIdsResponse>;
 }
 
 export interface MultiEvaluationServiceController {
+  /** MultiBusinessTerm */
+
   fetchAll(
     request: FetchAllRequest,
   ):
@@ -86,12 +127,30 @@ export interface MultiEvaluationServiceController {
     | Observable<FetchByTermIdAndUserIdResponse>
     | FetchByTermIdAndUserIdResponse;
 
+  /** MultiEvaluation */
+
   submitMultiEvaluation(
     request: SubmitMultiEvaluationRequest,
   ):
     | Promise<SubmitMultiEvaluationResponse>
     | Observable<SubmitMultiEvaluationResponse>
     | SubmitMultiEvaluationResponse;
+
+  /** User */
+
+  findUserById(
+    request: FindUserByIdRequest,
+  ):
+    | Promise<FindUserByIdResponse>
+    | Observable<FindUserByIdResponse>
+    | FindUserByIdResponse;
+
+  fetchUsersByIds(
+    request: FetchUsersByIdsRequest,
+  ):
+    | Promise<FetchUsersByIdsResponse>
+    | Observable<FetchUsersByIdsResponse>
+    | FetchUsersByIdsResponse;
 }
 
 export function MultiEvaluationServiceControllerMethods() {
@@ -100,6 +159,8 @@ export function MultiEvaluationServiceControllerMethods() {
       'fetchAll',
       'fetchByTermIdAndUserId',
       'submitMultiEvaluation',
+      'findUserById',
+      'fetchUsersByIds',
     ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(

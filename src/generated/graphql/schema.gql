@@ -13,14 +13,23 @@ type MulritTerms {
 }
 
 type MultiEvaluation {
-  comment: String!
+  goodComment: String!
+  id: ID!
+  improvementComment: String!
   multiTermId: String!
   score: Float!
-  taergetUserId: Float!
+  targetUser: User!
+  targetUserId: Float!
+  user: User!
   userId: Float!
 }
 
 type Query {
   multiBusinessTerms(orederBy: Boolean!, take: Float!): [MulritTerms!]
   multiEvaluation: [MultiEvaluation!]
+}
+
+type User {
+  id: ID!
+  name: String!
 }
