@@ -14,7 +14,6 @@ export class MultiEvaluationResolver {
 
   @Query(() => [MultiEvaluation], {
     name: 'multiEvaluation',
-    nullable: true,
   })
   async getMultiEvaluation() {
     const res: FetchByTermIdAndUserIdResponse = await lastValueFrom(

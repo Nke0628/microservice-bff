@@ -25,8 +25,8 @@ type MultiEvaluation {
 }
 
 type Query {
-  multiBusinessTerms(orederBy: Boolean!, take: Float!): [MulritTerms!]
-  multiEvaluation: [MultiEvaluation!]
+  multiBusinessTerms(orederBy: Boolean!, take: Float!): [MulritTerms!]!
+  multiEvaluation: [MultiEvaluation!]!
 }
 
 type User {

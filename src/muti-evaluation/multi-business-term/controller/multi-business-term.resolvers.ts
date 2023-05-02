@@ -9,7 +9,7 @@ import { MultiTermService } from '../infrastructure/multi-term.service';
 })
 export class MultiBusinessTermResolver {
   constructor(private readonly multi: MultiTermService) {}
-  @Query(() => [MulritTerms], { name: 'multiBusinessTerms', nullable: true })
+  @Query(() => [MulritTerms], { name: 'multiBusinessTerms' })
   async getMultiTerms(
     @Args('take') take: number,
     @Args('orederBy') orderBy: boolean,
