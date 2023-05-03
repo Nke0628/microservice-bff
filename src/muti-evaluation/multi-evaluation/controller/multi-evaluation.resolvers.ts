@@ -23,17 +23,20 @@ export class MultiEvaluationResolver {
   ) {}
 
   @Query(() => [MultiEvaluation], {
-    name: 'multiEvaluation',
+    name: 'multiEvaluations',
   })
-  async getMultiEvaluation() {
+  async getMultiEvaluation(@Args('termId') termId: number) {
     const res: FetchByTermIdAndUserIdResponse = await lastValueFrom(
-      this.multi.getTest({ termid: 1, userId: 1 }),
+      this.multi.getTest({ termid: termId, userId: 1 }),
     );
+    if (res.data === undefined) {
+      return [];
+    }
     return res.data;
   }
 
   @ResolveField()
-  async user(@Parent() test: MultiEvaluation) {
+  async targetUser(@Parent() test: MultiEvaluation) {
     const rest = await lastValueFrom(
       this.userRepository.findUserById({
         userId: test.userId,

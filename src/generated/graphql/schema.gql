@@ -30,7 +30,7 @@ type Mutation {
 
 type Query {
   multiBusinessTerms(orederBy: Boolean!, take: Float!): [MulritTerms!]!
-  multiEvaluation: [MultiEvaluation!]!
+  multiEvaluations(termId: Float!): [MultiEvaluation!]!
 }
 
 input RegisterMultiEvaluationInput {
