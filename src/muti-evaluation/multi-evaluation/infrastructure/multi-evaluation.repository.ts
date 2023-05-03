@@ -5,23 +5,33 @@ import {
   FetchByTermIdAndUserIdRequst,
   FetchByTermIdAndUserIdResponse,
   MultiEvaluationServiceClient,
+  SubmitMultiEvaluationRequest,
+  SubmitMultiEvaluationResponse,
 } from 'src/proto/genrated/multi_evaluation';
 
 @Injectable()
 export class MultiEvaluationRepository implements OnModuleInit {
-  private sampleService: MultiEvaluationServiceClient;
+  private multiEvaluationRepository: MultiEvaluationServiceClient;
 
   constructor(@Inject('EVALUATION_PACKAGE') private client: ClientGrpc) {}
 
   onModuleInit() {
-    this.sampleService = this.client.getService<MultiEvaluationServiceClient>(
-      'MultiEvaluationService',
-    );
+    this.multiEvaluationRepository =
+      this.client.getService<MultiEvaluationServiceClient>(
+        'MultiEvaluationService',
+      );
   }
 
   getTest(
     req: FetchByTermIdAndUserIdRequst,
   ): Observable<FetchByTermIdAndUserIdResponse> {
-    return this.sampleService.fetchByTermIdAndUserId(req);
+    return this.multiEvaluationRepository.fetchByTermIdAndUserId(req);
+  }
+
+  registerMulitEvaluation(
+    req: SubmitMultiEvaluationRequest,
+  ): Observable<SubmitMultiEvaluationResponse> {
+    const test = this.multiEvaluationRepository.submitMultiEvaluation(req);
+    return test;
   }
 }

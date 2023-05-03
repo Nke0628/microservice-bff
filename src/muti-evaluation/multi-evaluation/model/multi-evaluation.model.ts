@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 
 @ObjectType('User')
 export class User {
@@ -28,6 +28,27 @@ export class MultiEvaluation {
 
   @Field((type) => String)
   multiTermId: string;
+
+  @Field((type) => Number)
+  score: number;
+
+  @Field((type) => String)
+  goodComment: string;
+
+  @Field((type) => String)
+  improvementComment: string;
+}
+
+@InputType()
+export class RegisterMultiEvaluationInput {
+  @Field((type) => Number)
+  userId: number;
+
+  @Field((type) => Number)
+  targetUserId: number;
+
+  @Field((type) => Number)
+  multiTermId: number;
 
   @Field((type) => Number)
   score: number;

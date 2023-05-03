@@ -56,12 +56,14 @@ export interface SubmitMultiEvaluationRequest {
   targetUserId: number;
   multiTermId: number;
   score: number;
-  comment: string;
+  goodComment: string;
+  improvementComment: string;
 }
 
 export interface SubmitMultiEvaluationResponse {
   status: number;
   error: string;
+  data: MultiEvaluation | undefined;
 }
 
 export interface FindUserByIdRequest {

@@ -24,9 +24,22 @@ type MultiEvaluation {
   userId: Float!
 }
 
+type Mutation {
+  registerMultiEvaluation(input: RegisterMultiEvaluationInput!): MultiEvaluation!
+}
+
 type Query {
   multiBusinessTerms(orederBy: Boolean!, take: Float!): [MulritTerms!]!
   multiEvaluation: [MultiEvaluation!]!
+}
+
+input RegisterMultiEvaluationInput {
+  goodComment: String!
+  improvementComment: String!
+  multiTermId: Float!
+  score: Float!
+  targetUserId: Float!
+  userId: Float!
 }
 
 type User {
