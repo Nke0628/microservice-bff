@@ -6,60 +6,78 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { lastValueFrom } from 'rxjs';
-import { UserRepostitory } from 'src/muti-evaluation/user/infrastructure/multi-evaluation.repository';
-import { FetchByTermIdAndUserIdResponse } from 'src/proto/genrated/multi_evaluation';
+import { catchError, lastValueFrom } from 'rxjs';
+import { UserRepostitory } from 'src/muti-evaluation/user/infrastructure/user.repository';
 import { MultiEvaluationRepository } from '../infrastructure/multi-evaluation.repository';
 import {
   MultiEvaluation,
-  RegisterMultiEvaluationInput,
+  SubmitMultiEvaluationInput,
 } from '../model/multi-evaluation.model';
 
-@Resolver((of) => MultiEvaluation)
+@Resolver(() => MultiEvaluation)
 export class MultiEvaluationResolver {
   constructor(
-    private readonly multi: MultiEvaluationRepository,
+    private readonly multiEvaluationRepository: MultiEvaluationRepository,
     private readonly userRepository: UserRepostitory,
   ) {}
 
   @Query(() => [MultiEvaluation], {
     name: 'multiEvaluations',
   })
-  async getMultiEvaluation(@Args('termId') termId: number) {
-    const res: FetchByTermIdAndUserIdResponse = await lastValueFrom(
-      this.multi.getTest({ termid: termId, userId: 1 }),
+  async fetchMultiEvaluations(@Args('termId') termId: number) {
+    // TODO 認証からuserIdを取得する
+    const { data } = await lastValueFrom(
+      this.multiEvaluationRepository
+        .fetchByTermIdAndUserId({ termId: termId, userId: 1 })
+        .pipe(
+          catchError((e) => {
+            throw e;
+          }),
+        ),
     );
-    if (res.data === undefined) {
+    if (data === undefined) {
       return [];
     }
-    return res.data;
+    return data;
   }
 
   @ResolveField()
-  async targetUser(@Parent() test: MultiEvaluation) {
-    const rest = await lastValueFrom(
-      this.userRepository.findUserById({
-        userId: test.userId,
-      }),
+  async targetUser(@Parent() multiEvaluation: MultiEvaluation) {
+    const { data } = await lastValueFrom(
+      this.userRepository
+        .findUserById({
+          userId: multiEvaluation.targetUserId,
+        })
+        .pipe(
+          catchError((e) => {
+            throw e;
+          }),
+        ),
     );
-    return rest.data;
+    return data;
   }
 
   @Mutation(() => MultiEvaluation)
-  async registerMultiEvaluation(
+  async submitMultiEvaluation(
     @Args('input')
-    req: RegisterMultiEvaluationInput,
+    input: SubmitMultiEvaluationInput,
   ) {
-    const rest = await lastValueFrom(
-      this.multi.registerMulitEvaluation({
-        userId: req.userId,
-        targetUserId: req.targetUserId,
-        score: req.score,
-        multiTermId: req.multiTermId,
-        goodComment: req.goodComment,
-        improvementComment: req.improvementComment,
-      }),
+    const { data } = await lastValueFrom(
+      this.multiEvaluationRepository
+        .submitMulitEvaluation({
+          userId: input.userId,
+          targetUserId: input.targetUserId,
+          score: input.score,
+          multiTermId: input.multiTermId,
+          goodComment: input.goodComment,
+          improvementComment: input.improvementComment,
+        })
+        .pipe(
+          catchError((e) => {
+            throw e;
+          }),
+        ),
     );
-    return rest.data;
+    return data;
   }
 }

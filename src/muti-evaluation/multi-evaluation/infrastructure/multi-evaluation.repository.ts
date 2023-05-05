@@ -1,37 +1,30 @@
-import { Injectable, OnModuleInit, Inject } from '@nestjs/common';
-import { ClientGrpc } from '@nestjs/microservices';
+import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { MyGrpcService } from 'src/grpc/grpc-client.service';
 import {
   FetchByTermIdAndUserIdRequst,
   FetchByTermIdAndUserIdResponse,
-  MultiEvaluationServiceClient,
   SubmitMultiEvaluationRequest,
   SubmitMultiEvaluationResponse,
 } from 'src/proto/genrated/multi_evaluation';
 
 @Injectable()
-export class MultiEvaluationRepository implements OnModuleInit {
-  private multiEvaluationRepository: MultiEvaluationServiceClient;
+export class MultiEvaluationRepository {
+  constructor(private readonly myGrpcService: MyGrpcService) {}
 
-  constructor(@Inject('EVALUATION_PACKAGE') private client: ClientGrpc) {}
-
-  onModuleInit() {
-    this.multiEvaluationRepository =
-      this.client.getService<MultiEvaluationServiceClient>(
-        'MultiEvaluationService',
-      );
-  }
-
-  getTest(
-    req: FetchByTermIdAndUserIdRequst,
+  fetchByTermIdAndUserId(
+    request: FetchByTermIdAndUserIdRequst,
   ): Observable<FetchByTermIdAndUserIdResponse> {
-    return this.multiEvaluationRepository.fetchByTermIdAndUserId(req);
+    return this.myGrpcService.multiEvaluationService.fetchByTermIdAndUserId(
+      request,
+    );
   }
 
-  registerMulitEvaluation(
-    req: SubmitMultiEvaluationRequest,
+  submitMulitEvaluation(
+    request: SubmitMultiEvaluationRequest,
   ): Observable<SubmitMultiEvaluationResponse> {
-    const test = this.multiEvaluationRepository.submitMultiEvaluation(req);
-    return test;
+    return this.myGrpcService.multiEvaluationService.submitMultiEvaluation(
+      request,
+    );
   }
 }

@@ -4,9 +4,9 @@ import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import * as path from 'path';
 import { AuthGuard } from './auth/auth.guard';
-import { MultiBusinessTermModule } from './muti-evaluation/multi-business-term/multi-business-term.module';
+import { MultiTermModule } from './muti-evaluation/multi-business-term/multi-term.module';
 import { MultiEvaluationModule } from './muti-evaluation/multi-evaluation/multi-evaluation.module';
-import { UserModule } from './muti-evaluation/user/multi-evaluation.module';
+import { UserModule } from './muti-evaluation/user/user.module';
 
 @Module({
   imports: [
@@ -16,16 +16,16 @@ import { UserModule } from './muti-evaluation/user/multi-evaluation.module';
       driver: ApolloDriver,
     }),
     UserModule,
-    MultiBusinessTermModule,
+    MultiTermModule,
     MultiEvaluationModule,
   ],
+
+  // TODO 認証認可実装する
   providers: [
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
   ],
-  // controllers: [AppController],
-  // providers: [AppService],
 })
 export class AppModule {}

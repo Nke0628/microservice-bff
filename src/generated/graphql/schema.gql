@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type MulritTerms {
+type MulritTerm {
   businessTermEndDate: String!
   businessTermName: String!
   businessTermStartDate: String!
@@ -25,15 +25,15 @@ type MultiEvaluation {
 }
 
 type Mutation {
-  registerMultiEvaluation(input: RegisterMultiEvaluationInput!): MultiEvaluation!
+  submitMultiEvaluation(input: SubmitMultiEvaluationInput!): MultiEvaluation!
 }
 
 type Query {
-  multiBusinessTerms(orederBy: Boolean!, take: Float!): [MulritTerms!]!
+  multiBusinessTerms(orederBy: Boolean!, take: Float!): [MulritTerm!]!
   multiEvaluations(termId: Float!): [MultiEvaluation!]!
 }
 
-input RegisterMultiEvaluationInput {
+input SubmitMultiEvaluationInput {
   goodComment: String!
   improvementComment: String!
   multiTermId: Float!

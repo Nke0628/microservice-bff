@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 export const protobufPackage = 'multi_evaluation.v1';
 
-export interface MultiBusinessTerm {
+export interface MultiTerm {
   id: number;
   businessTermName: string;
   businessTermStartDate: string;
@@ -29,25 +29,21 @@ export interface User {
   name: string;
 }
 
-export interface FetchAllRequest {
+export interface FetchMultiTermAllRequest {
   take: number;
   orderBy: boolean;
 }
 
-export interface FetchAllResponse {
-  status: number;
-  error: string;
-  data: MultiBusinessTerm[];
+export interface FetchMultiTermAllResponse {
+  data: MultiTerm[];
 }
 
 export interface FetchByTermIdAndUserIdRequst {
-  termid: number;
+  termId: number;
   userId: number;
 }
 
 export interface FetchByTermIdAndUserIdResponse {
-  status: number;
-  error: string;
   data: MultiEvaluation[];
 }
 
@@ -61,8 +57,6 @@ export interface SubmitMultiEvaluationRequest {
 }
 
 export interface SubmitMultiEvaluationResponse {
-  status: number;
-  error: string;
   data: MultiEvaluation | undefined;
 }
 
@@ -71,8 +65,6 @@ export interface FindUserByIdRequest {
 }
 
 export interface FindUserByIdResponse {
-  status: number;
-  error: string;
   data: User | undefined;
 }
 
@@ -81,23 +73,23 @@ export interface FetchUsersByIdsRequest {
 }
 
 export interface FetchUsersByIdsResponse {
-  status: number;
-  error: string;
   data: User[];
 }
 
 export const MULTI_EVALUATION_V1_PACKAGE_NAME = 'multi_evaluation.v1';
 
 export interface MultiEvaluationServiceClient {
-  /** MultiBusinessTerm */
+  /** MultiTerm */
 
-  fetchAll(request: FetchAllRequest): Observable<FetchAllResponse>;
+  fetchMultiTermAll(
+    request: FetchMultiTermAllRequest,
+  ): Observable<FetchMultiTermAllResponse>;
+
+  /** MultiEvaluation */
 
   fetchByTermIdAndUserId(
     request: FetchByTermIdAndUserIdRequst,
   ): Observable<FetchByTermIdAndUserIdResponse>;
-
-  /** MultiEvaluation */
 
   submitMultiEvaluation(
     request: SubmitMultiEvaluationRequest,
@@ -113,14 +105,16 @@ export interface MultiEvaluationServiceClient {
 }
 
 export interface MultiEvaluationServiceController {
-  /** MultiBusinessTerm */
+  /** MultiTerm */
 
-  fetchAll(
-    request: FetchAllRequest,
+  fetchMultiTermAll(
+    request: FetchMultiTermAllRequest,
   ):
-    | Promise<FetchAllResponse>
-    | Observable<FetchAllResponse>
-    | FetchAllResponse;
+    | Promise<FetchMultiTermAllResponse>
+    | Observable<FetchMultiTermAllResponse>
+    | FetchMultiTermAllResponse;
+
+  /** MultiEvaluation */
 
   fetchByTermIdAndUserId(
     request: FetchByTermIdAndUserIdRequst,
@@ -128,8 +122,6 @@ export interface MultiEvaluationServiceController {
     | Promise<FetchByTermIdAndUserIdResponse>
     | Observable<FetchByTermIdAndUserIdResponse>
     | FetchByTermIdAndUserIdResponse;
-
-  /** MultiEvaluation */
 
   submitMultiEvaluation(
     request: SubmitMultiEvaluationRequest,
@@ -158,7 +150,7 @@ export interface MultiEvaluationServiceController {
 export function MultiEvaluationServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
-      'fetchAll',
+      'fetchMultiTermAll',
       'fetchByTermIdAndUserId',
       'submitMultiEvaluation',
       'findUserById',

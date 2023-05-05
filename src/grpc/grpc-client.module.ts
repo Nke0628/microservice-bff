@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
-import { UserRepostitory } from './infrastructure/multi-evaluation.repository';
+import { MyGrpcService } from './grpc-client.service';
+
 @Module({
   imports: [
     ClientsModule.register([
@@ -13,13 +14,13 @@ import { UserRepostitory } from './infrastructure/multi-evaluation.repository';
           package: 'multi_evaluation.v1',
           protoPath: join(
             __dirname,
-            '../../proto/multi_evaluation/v1/multi_evaluation.proto',
+            '../proto/multi_evaluation/v1/multi_evaluation.proto',
           ),
         },
       },
     ]),
   ],
-  providers: [UserRepostitory],
-  exports: [UserRepostitory],
+  providers: [MyGrpcService],
+  exports: [MyGrpcService],
 })
-export class UserModule {}
+export class MyGrpcModule {}
