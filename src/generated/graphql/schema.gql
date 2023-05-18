@@ -29,8 +29,14 @@ type Mutation {
 }
 
 type Query {
-  multiEvaluations(termId: Float!): [MultiEvaluation!]!
   multiTerms(orederBy: Boolean!, take: Float!): [MulritTerm!]!
+  myEvaluatingMultiEvaluations(termId: Float!): [MultiEvaluation!]!
+  searchMyEvaluatingMultiEvaluations(skip: Float!, take: Float!): SearchMultiEvaluation!
+}
+
+type SearchMultiEvaluation {
+  multiEvaluation: [MultiEvaluation!]!
+  totalCount: Float!
 }
 
 input SubmitMultiEvaluationInput {

@@ -22,9 +22,9 @@ export class MultiEvaluationResolver {
   ) {}
 
   @Query(() => [MultiEvaluation], {
-    name: 'multiEvaluations',
+    name: 'myEvaluatingMultiEvaluations',
   })
-  async fetchMultiEvaluations(@Args('termId') termId: number) {
+  async myEvaluatingMultiEvaluations(@Args('termId') termId: number) {
     // TODO 認証からuserIdを取得する
     const { data } = await lastValueFrom(
       this.multiEvaluationRepository

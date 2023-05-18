@@ -1,4 +1,4 @@
-import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
+import { ArgsType, Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { User } from 'src/muti-evaluation/user/model/user.model';
 
 @ObjectType('MultiEvaluation')
@@ -50,4 +50,13 @@ export class SubmitMultiEvaluationInput {
 
   @Field((type) => String)
   improvementComment: string;
+}
+
+@ArgsType()
+export class SearchMyEvaluatingMultiEvaluationsArgs {
+  @Field()
+  take: number;
+
+  @Field()
+  skip: number;
 }
