@@ -6,6 +6,7 @@ import * as path from 'path';
 import { AuthGuard } from './auth/auth.guard';
 import { MultiTermModule } from './muti-evaluation/multi-business-term/multi-term.module';
 import { MultiEvaluationModule } from './muti-evaluation/multi-evaluation/multi-evaluation.module';
+import { ReportSettingModule } from './muti-evaluation/report-setting/report-setting.module';
 import { UserModule } from './muti-evaluation/user/user.module';
 
 @Module({
@@ -18,6 +19,7 @@ import { UserModule } from './muti-evaluation/user/user.module';
     UserModule,
     MultiTermModule,
     MultiEvaluationModule,
+    ReportSettingModule,
   ],
 
   // TODO 認証認可実装する

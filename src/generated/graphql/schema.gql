@@ -31,7 +31,25 @@ type Mutation {
 type Query {
   multiTerms(orederBy: Boolean!, take: Float!): [MulritTerm!]!
   myEvaluatingMultiEvaluations(termId: Float!): [MultiEvaluation!]!
+  reportSetting(termId: Float!): ReportSetting!
   searchMyEvaluatingMultiEvaluations(skip: Float!, take: Float!): SearchMultiEvaluation!
+}
+
+type ReportSetting {
+  reportSettingDetails: [ReportSettingDetail!]!
+  reportSettingId: ID!
+  saveUser: User!
+  saveUserId: Float!
+  savedAt: String!
+}
+
+type ReportSettingDetail {
+  charaNum: Float
+  inputFlg: Boolean!
+  positionLayerName: String!
+  positionLayerType: Float!
+  reportSettingDetailId: ID!
+  theme: String!
 }
 
 type SearchMultiEvaluation {
