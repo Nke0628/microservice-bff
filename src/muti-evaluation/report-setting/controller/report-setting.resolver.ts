@@ -22,7 +22,6 @@ export class ReportoSettingResolver {
     name: 'reportSetting',
   })
   async reportSetting(@Args('termId') termId: number) {
-    console.log('hoge');
     const { data } = await lastValueFrom(
       this.ReportSettingRepository.FetchReportSettingByTermId(termId).pipe(
         catchError((e) => {

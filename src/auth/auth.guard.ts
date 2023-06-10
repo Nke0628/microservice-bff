@@ -6,7 +6,6 @@ export class AuthGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    console.log('execute auth guard');
     /**
      * Step1 リクエストヘッダーからメールアドレスを取得する。
     メールアドレスが取得できない場合は認証エラー

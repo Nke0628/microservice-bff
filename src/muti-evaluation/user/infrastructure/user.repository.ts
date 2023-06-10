@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { catchError, lastValueFrom, Observable } from 'rxjs';
 import { MyGrpcService } from 'src/grpc/grpc-client.service';
 import {
-  FetchUsersByIdsRequest,
-  FetchUsersByIdsResponse,
   FindUserByIdRequest,
   FindUserByIdResponse,
+  User,
 } from 'src/proto/genrated/multi_evaluation';
 
 @Injectable()
@@ -16,11 +15,16 @@ export class UserRepostitory {
     return this.myGrpcService.multiEvaluationService.findUserById(req);
   }
 
-  fetchUsersByIds(
-    req: FetchUsersByIdsRequest,
-  ): Observable<FetchUsersByIdsResponse> {
-    return this.myGrpcService.multiEvaluationService.fetchUsersByIds({
-      userIds: req.userIds,
-    });
+  async fetchUsersByIds(userIds: number[]): Promise<User[]> {
+    const { data } = await lastValueFrom(
+      this.myGrpcService.multiEvaluationService
+        .fetchUsersByIds({ userIds })
+        .pipe(
+          catchError((e) => {
+            throw e;
+          }),
+        ),
+    );
+    return data;
   }
 }

@@ -7,7 +7,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { catchError, lastValueFrom } from 'rxjs';
-import { UserRepostitory } from 'src/muti-evaluation/user/infrastructure/user.repository';
+import { UserLoader } from 'src/muti-evaluation/user/infrastructure/user.loader';
 import { MultiEvaluationRepository } from '../infrastructure/multi-evaluation.repository';
 import {
   MultiEvaluation,
@@ -18,7 +18,7 @@ import {
 export class MultiEvaluationResolver {
   constructor(
     private readonly multiEvaluationRepository: MultiEvaluationRepository,
-    private readonly userRepository: UserRepostitory,
+    private readonly userLoader: UserLoader,
   ) {}
 
   @Query(() => [MultiEvaluation], {
@@ -43,18 +43,7 @@ export class MultiEvaluationResolver {
 
   @ResolveField()
   async targetUser(@Parent() multiEvaluation: MultiEvaluation) {
-    const { data } = await lastValueFrom(
-      this.userRepository
-        .findUserById({
-          userId: multiEvaluation.targetUserId,
-        })
-        .pipe(
-          catchError((e) => {
-            throw e;
-          }),
-        ),
-    );
-    return data;
+    return this.userLoader.load(multiEvaluation.targetUserId);
   }
 
   @Mutation(() => MultiEvaluation)
