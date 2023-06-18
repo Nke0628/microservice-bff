@@ -4,6 +4,52 @@ import { Observable } from 'rxjs';
 
 export const protobufPackage = 'multi_evaluation.v1';
 
+export enum ApplyStatus {
+  UNAPPLIED = 0,
+  APPLYING = 1,
+  APPROVE = 2,
+  REMAND = 3,
+  EXEMPTION = 4,
+  UNRECOGNIZED = -1,
+}
+
+export enum PositionLayerType {
+  SECTION = 0,
+  EGG_ASISTANT = 1,
+  EGG_GENERAL = 2,
+  GENERAL = 3,
+  LEADER = 4,
+  SUB_CHEIF = 5,
+  UNRECOGNIZED = -1,
+}
+
+export interface FindManagerNormaApplyRequest {
+  userId: number;
+  multiTermId: number;
+}
+
+export interface FindManagerNormaApplyResponse {
+  id: number;
+  multiTermId: number;
+  reason: string;
+  exemptionCount: number;
+  applyStatus: ApplyStatus;
+  remandReason: string;
+}
+
+export interface FindMultiEvaluationByIdRequst {
+  id: number;
+}
+
+export interface FindMultiEvaluationByIdResponse {
+  id: number;
+  userId: number;
+  targetUserId: number;
+  score: number;
+  goodComment: string;
+  improvementComment: string;
+}
+
 export interface FetchReportSettingsByTermIdRequest {
   termId: number;
 }
@@ -18,7 +64,7 @@ export interface ReportSetting {
 export interface ReportSettingDetail {
   reportSettingDetailId: number;
   positionLayerName: string;
-  positionLayerType: number;
+  positionLayerType: PositionLayerType;
   inputFlg: boolean;
   theme: string;
   charaNum: number;
@@ -111,6 +157,10 @@ export interface MultiEvaluationServiceClient {
 
   /** MultiEvaluation */
 
+  findMultiEvaluationById(
+    request: FindMultiEvaluationByIdRequst,
+  ): Observable<FindMultiEvaluationByIdResponse>;
+
   fetchByTermIdAndUserId(
     request: FetchByTermIdAndUserIdRequst,
   ): Observable<FetchByTermIdAndUserIdResponse>;
@@ -126,6 +176,12 @@ export interface MultiEvaluationServiceClient {
   fetchUsersByIds(
     request: FetchUsersByIdsRequest,
   ): Observable<FetchUsersByIdsResponse>;
+
+  /** NormaApply */
+
+  findManagerNormaApplyByUserIdAndTermId(
+    request: FindManagerNormaApplyRequest,
+  ): Observable<FindManagerNormaApplyResponse>;
 
   /** ReportSetting */
 
@@ -145,6 +201,13 @@ export interface MultiEvaluationServiceController {
     | FetchMultiTermAllResponse;
 
   /** MultiEvaluation */
+
+  findMultiEvaluationById(
+    request: FindMultiEvaluationByIdRequst,
+  ):
+    | Promise<FindMultiEvaluationByIdResponse>
+    | Observable<FindMultiEvaluationByIdResponse>
+    | FindMultiEvaluationByIdResponse;
 
   fetchByTermIdAndUserId(
     request: FetchByTermIdAndUserIdRequst,
@@ -176,6 +239,15 @@ export interface MultiEvaluationServiceController {
     | Observable<FetchUsersByIdsResponse>
     | FetchUsersByIdsResponse;
 
+  /** NormaApply */
+
+  findManagerNormaApplyByUserIdAndTermId(
+    request: FindManagerNormaApplyRequest,
+  ):
+    | Promise<FindManagerNormaApplyResponse>
+    | Observable<FindManagerNormaApplyResponse>
+    | FindManagerNormaApplyResponse;
+
   /** ReportSetting */
 
   fetchReportSettingsByTermId(
@@ -190,10 +262,12 @@ export function MultiEvaluationServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
       'fetchMultiTermAll',
+      'findMultiEvaluationById',
       'fetchByTermIdAndUserId',
       'submitMultiEvaluation',
       'findUserById',
       'fetchUsersByIds',
+      'findManagerNormaApplyByUserIdAndTermId',
       'fetchReportSettingsByTermId',
     ];
     for (const method of grpcMethods) {
