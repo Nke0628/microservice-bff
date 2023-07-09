@@ -9,7 +9,10 @@ import {
 import { catchError, lastValueFrom } from 'rxjs';
 import { UserRepostitory } from 'src/muti-evaluation/user/infrastructure/user.repository';
 import { ReportSettingepository } from '../infrastructure/report-setting.repository';
-import { ReportoSetting } from '../model/report-setting.model';
+import {
+  ReportoSetting,
+  SaveReportSettingInput,
+} from '../model/report-setting.model';
 
 @Resolver(() => ReportoSetting)
 export class ReportoSettingResolver {
@@ -48,6 +51,26 @@ export class ReportoSettingResolver {
           }),
         ),
     );
+    return data;
+  }
+
+  @Mutation(() => ReportoSetting)
+  async saveReportSetting(
+    @Args('input')
+    input: SaveReportSettingInput,
+  ) {
+    // TODO AuthContextからユーザIDを取得する
+    const userId = 1;
+    const { data } = await lastValueFrom(
+      this.ReportSettingRepository.SaveReportSetting(userId, input).pipe(
+        catchError((e) => {
+          throw e;
+        }),
+      ),
+    );
+    if (data === undefined) {
+      return [];
+    }
     return data;
   }
 }

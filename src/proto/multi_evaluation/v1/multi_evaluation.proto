@@ -20,6 +20,7 @@ service MultiEvaluationService {
 
     // ReportSetting
     rpc FetchReportSettingsByTermId(FetchReportSettingsByTermIdRequest)returns(FetchReportSettingsByTermIdResponse){}
+    rpc RegisterReportSettings(RegisterReportSettingsRequest)returns(RegisterReportSettingsResponse){}
 }
 
 message FindManagerNormaApplyRequest{
@@ -70,12 +71,13 @@ message ReportSetting{
 }
 
 enum PositionLayerType{
-    SECTION = 0;
-    EGG_ASISTANT = 1;
-    EGG_GENERAL = 2;
-    GENERAL = 3;
-    LEADER = 4;
-    SUB_CHEIF = 5;
+    UNSPECIFIED = 0;
+    SECTION = 1;
+    EGG_ASISTANT = 2;
+    EGG_GENERAL = 3;
+    GENERAL = 4;
+    LEADER = 5;
+    SUB_CHEIF = 6;
 }
 
 message ReportSettingDetail{
@@ -88,6 +90,23 @@ message ReportSettingDetail{
 }
 
 message FetchReportSettingsByTermIdResponse{
+    ReportSetting data = 1;
+}
+
+message RegisterReportSettingDetail{
+    PositionLayerType position_layer_type = 1;
+    bool input_flg = 2;
+    string theme = 3;
+    int32 chara_num = 4;
+}
+
+message RegisterReportSettingsRequest {
+    int32 user_id = 1;
+    int32 term_id = 2;
+    repeated RegisterReportSettingDetail reportSettingDetails = 3;
+}
+
+message RegisterReportSettingsResponse{
     ReportSetting data = 1;
 }
 

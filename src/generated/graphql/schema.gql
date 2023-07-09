@@ -25,6 +25,7 @@ type MultiEvaluation {
 }
 
 type Mutation {
+  saveReportSetting(input: SaveReportSettingInput!): ReportSetting!
   submitMultiEvaluation(input: SubmitMultiEvaluationInput!): MultiEvaluation!
 }
 
@@ -50,6 +51,18 @@ type ReportSettingDetail {
   positionLayerType: Float!
   reportSettingDetailId: ID!
   theme: String!
+}
+
+input SaveReportSettingDetailInput {
+  charaNum: Float
+  inputFlg: Boolean!
+  positionLayerType: Float!
+  theme: String!
+}
+
+input SaveReportSettingInput {
+  reportSettingDetail: [SaveReportSettingDetailInput!]!
+  termId: Float!
 }
 
 type SearchMultiEvaluation {

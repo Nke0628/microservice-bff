@@ -40,3 +40,27 @@ export class ReportoSettingDetail {
   @Field((type) => Number, { nullable: true })
   charaNum: number;
 }
+
+@InputType()
+export class SaveReportSettingDetailInput {
+  @Field((type) => Number)
+  positionLayerType: number;
+
+  @Field((type) => Boolean)
+  inputFlg: boolean;
+
+  @Field((type) => String)
+  theme: string;
+
+  @Field((type) => Number, { nullable: true })
+  charaNum: number;
+}
+
+@InputType()
+export class SaveReportSettingInput {
+  @Field((type) => Number)
+  termId: number;
+
+  @Field((type) => [SaveReportSettingDetailInput])
+  reportSettingDetail: [SaveReportSettingDetailInput];
+}

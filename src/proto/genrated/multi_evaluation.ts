@@ -14,12 +14,13 @@ export enum ApplyStatus {
 }
 
 export enum PositionLayerType {
-  SECTION = 0,
-  EGG_ASISTANT = 1,
-  EGG_GENERAL = 2,
-  GENERAL = 3,
-  LEADER = 4,
-  SUB_CHEIF = 5,
+  UNSPECIFIED = 0,
+  SECTION = 1,
+  EGG_ASISTANT = 2,
+  EGG_GENERAL = 3,
+  GENERAL = 4,
+  LEADER = 5,
+  SUB_CHEIF = 6,
   UNRECOGNIZED = -1,
 }
 
@@ -71,6 +72,23 @@ export interface ReportSettingDetail {
 }
 
 export interface FetchReportSettingsByTermIdResponse {
+  data: ReportSetting | undefined;
+}
+
+export interface RegisterReportSettingDetail {
+  positionLayerType: PositionLayerType;
+  inputFlg: boolean;
+  theme: string;
+  charaNum: number;
+}
+
+export interface RegisterReportSettingsRequest {
+  userId: number;
+  termId: number;
+  reportSettingDetails: RegisterReportSettingDetail[];
+}
+
+export interface RegisterReportSettingsResponse {
   data: ReportSetting | undefined;
 }
 
@@ -188,6 +206,10 @@ export interface MultiEvaluationServiceClient {
   fetchReportSettingsByTermId(
     request: FetchReportSettingsByTermIdRequest,
   ): Observable<FetchReportSettingsByTermIdResponse>;
+
+  registerReportSettings(
+    request: RegisterReportSettingsRequest,
+  ): Observable<RegisterReportSettingsResponse>;
 }
 
 export interface MultiEvaluationServiceController {
@@ -256,6 +278,13 @@ export interface MultiEvaluationServiceController {
     | Promise<FetchReportSettingsByTermIdResponse>
     | Observable<FetchReportSettingsByTermIdResponse>
     | FetchReportSettingsByTermIdResponse;
+
+  registerReportSettings(
+    request: RegisterReportSettingsRequest,
+  ):
+    | Promise<RegisterReportSettingsResponse>
+    | Observable<RegisterReportSettingsResponse>
+    | RegisterReportSettingsResponse;
 }
 
 export function MultiEvaluationServiceControllerMethods() {
@@ -269,6 +298,7 @@ export function MultiEvaluationServiceControllerMethods() {
       'fetchUsersByIds',
       'findManagerNormaApplyByUserIdAndTermId',
       'fetchReportSettingsByTermId',
+      'registerReportSettings',
     ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(
