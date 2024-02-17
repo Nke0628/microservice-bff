@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { catchError, lastValueFrom, Observable } from 'rxjs';
-import { MyGrpcService } from 'src/grpc/grpc-client.service';
+import { MyGrpcService } from 'src/common/grpc/grpc-client.service';
 import {
   FindUserByIdRequest,
   FindUserByIdResponse,

@@ -24,6 +24,23 @@ export enum PositionLayerType {
   UNRECOGNIZED = -1,
 }
 
+/** レポート提出状況 */
+export enum ReportSubmitStatus {
+  REPORT_SUBMIT_STATUS_UNSPECIFIED = 0,
+  UNSUBMITTED = 1,
+  ACCEPTED = 2,
+  DECLINED = 3,
+  UNRECOGNIZED = -1,
+}
+
+/** レポート認可状況 */
+export enum ReportResultStatus {
+  REPORT_RESULT_UNSPECIFIED = 0,
+  APPROVED = 1,
+  REJECTED = 2,
+  UNRECOGNIZED = -1,
+}
+
 export interface FindManagerNormaApplyRequest {
   userId: number;
   multiTermId: number;
@@ -36,19 +53,6 @@ export interface FindManagerNormaApplyResponse {
   exemptionCount: number;
   applyStatus: ApplyStatus;
   remandReason: string;
-}
-
-export interface FindMultiEvaluationByIdRequst {
-  id: number;
-}
-
-export interface FindMultiEvaluationByIdResponse {
-  id: number;
-  userId: number;
-  targetUserId: number;
-  score: number;
-  goodComment: string;
-  improvementComment: string;
 }
 
 export interface FetchReportSettingsByTermIdRequest {
@@ -164,6 +168,22 @@ export interface FetchUsersByIdsResponse {
   data: User[];
 }
 
+/** 評価検索リクエスト */
+export interface SearchMultiEvaluationRequest {
+  termId: number;
+  userIdList: number[];
+  reportSubmitStatusList: ReportSubmitStatus[];
+  reportResultStatusList: ReportResultStatus[];
+  limit: number;
+  page: number;
+}
+
+/** 評価検索レスポンス */
+export interface SearchMultiEvaluationResponse {
+  totalCount: number;
+  data: MultiEvaluation[];
+}
+
 export const MULTI_EVALUATION_V1_PACKAGE_NAME = 'multi_evaluation.v1';
 
 export interface MultiEvaluationServiceClient {
@@ -175,13 +195,13 @@ export interface MultiEvaluationServiceClient {
 
   /** MultiEvaluation */
 
-  findMultiEvaluationById(
-    request: FindMultiEvaluationByIdRequst,
-  ): Observable<FindMultiEvaluationByIdResponse>;
-
   fetchByTermIdAndUserId(
     request: FetchByTermIdAndUserIdRequst,
   ): Observable<FetchByTermIdAndUserIdResponse>;
+
+  searchMultiEvaluation(
+    request: SearchMultiEvaluationRequest,
+  ): Observable<SearchMultiEvaluationResponse>;
 
   submitMultiEvaluation(
     request: SubmitMultiEvaluationRequest,
@@ -224,19 +244,19 @@ export interface MultiEvaluationServiceController {
 
   /** MultiEvaluation */
 
-  findMultiEvaluationById(
-    request: FindMultiEvaluationByIdRequst,
-  ):
-    | Promise<FindMultiEvaluationByIdResponse>
-    | Observable<FindMultiEvaluationByIdResponse>
-    | FindMultiEvaluationByIdResponse;
-
   fetchByTermIdAndUserId(
     request: FetchByTermIdAndUserIdRequst,
   ):
     | Promise<FetchByTermIdAndUserIdResponse>
     | Observable<FetchByTermIdAndUserIdResponse>
     | FetchByTermIdAndUserIdResponse;
+
+  searchMultiEvaluation(
+    request: SearchMultiEvaluationRequest,
+  ):
+    | Promise<SearchMultiEvaluationResponse>
+    | Observable<SearchMultiEvaluationResponse>
+    | SearchMultiEvaluationResponse;
 
   submitMultiEvaluation(
     request: SubmitMultiEvaluationRequest,
@@ -291,8 +311,8 @@ export function MultiEvaluationServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
       'fetchMultiTermAll',
-      'findMultiEvaluationById',
       'fetchByTermIdAndUserId',
+      'searchMultiEvaluation',
       'submitMultiEvaluation',
       'findUserById',
       'fetchUsersByIds',

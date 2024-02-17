@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MultiTermRepositoy } from './infrastructure/multi-term.repository';
 import { MultiTermResolver } from './controller/multi-term.resolvers';
-import { MyGrpcModule } from 'src/grpc/grpc-client.module';
+import { MyGrpcModule } from 'src/common/grpc/grpc-client.module';
 
 @Module({
   imports: [MyGrpcModule],

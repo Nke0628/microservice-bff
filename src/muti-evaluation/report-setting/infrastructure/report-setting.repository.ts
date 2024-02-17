@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { MyGrpcService } from 'src/grpc/grpc-client.service';
+import { MyGrpcService } from 'src/common/grpc/grpc-client.service';
 import {
   FetchReportSettingsByTermIdResponse,
   RegisterReportSettingsResponse,

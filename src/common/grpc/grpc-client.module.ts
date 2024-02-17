@@ -12,10 +12,16 @@ import { MyGrpcService } from './grpc-client.service';
         options: {
           url: 'localhost:5000',
           package: 'multi_evaluation.v1',
-          protoPath: join(
-            __dirname,
-            '../proto/multi_evaluation/v1/multi_evaluation.proto',
-          ),
+          protoPath: [
+            join(
+              __dirname,
+              '../../proto/multi_evaluation/v1/multi_evaluation.proto',
+            ),
+            join(
+              __dirname,
+              '../../proto/multi_evaluation/v1/multi_evaluation_query.proto',
+            ),
+          ],
         },
       },
     ]),

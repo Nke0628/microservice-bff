@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MyGrpcModule } from 'src/grpc/grpc-client.module';
+import { MyGrpcModule } from 'src/common/grpc/grpc-client.module';
 import { UserModule } from '../user/user.module';
 import { MultiEvaluationResolver } from './controller/multi-evaluation.resolvers';
 import { SearcgMultiEvaluationResolver } from './controller/search-multi-evaluation.resolvers.';
