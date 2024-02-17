@@ -1,9 +1,13 @@
 import { ArgsType, Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { User } from 'src/muti-evaluation/user/model/user.model';
+import { Fields } from 'src/util/object';
 
 /** 360度評価クエリモデル */
 @ObjectType('MultiEvaluationQuery')
 export class MultiEvaluationQuery {
+  constructor(props: Fields<MultiEvaluationQuery>) {
+    Object.assign(this, props);
+  }
   /** 評価ID */
   @Field(() => ID)
   id: number;
@@ -26,7 +30,7 @@ export class MultiEvaluationQuery {
 
   /** 評価期間ID */
   @Field(() => Int)
-  multiTermId: string;
+  multiTermId: number;
 
   /** 点数 */
   @Field(() => Int)

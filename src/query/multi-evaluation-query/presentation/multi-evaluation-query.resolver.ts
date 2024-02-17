@@ -12,16 +12,14 @@ export class MultiEvaluationQueryResolver {
     nullable: true,
   })
   async findMyEvaluationById(@Args() arg: FindMyEvaluationByIdArgs) {
-    return {
+    return new MultiEvaluationQuery({
       id: 1,
       userId: 1,
       targetUserId: 1,
       multiTermId: 1,
       score: 30,
       goodComment: '',
-      improvementCOmment: '',
-      createdAt: '',
-      updatedAt: '',
-    };
+      improvementComment: '',
+    });
   }
 }
