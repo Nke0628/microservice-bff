@@ -24,12 +24,27 @@ type MultiEvaluation {
   userId: Float!
 }
 
+type MultiEvaluationQuery {
+  createdAt: String!
+  goodComment: String!
+  id: ID!
+  improvementComment: String!
+  multiTermId: Int!
+  score: Int!
+  targetUser: User!
+  targetUserId: Int!
+  updatedAt: String!
+  user: User!
+  userId: Int!
+}
+
 type Mutation {
   saveReportSetting(input: SaveReportSettingInput!): ReportSetting!
   submitMultiEvaluation(input: SubmitMultiEvaluationInput!): MultiEvaluation!
 }
 
 type Query {
+  findMultiEvaluationById(id: Float!): MultiEvaluationQuery
   multiTerms(orederBy: Boolean!, take: Float!): [MulritTerm!]!
   myEvaluatingMultiEvaluations(termId: Float!): [MultiEvaluation!]!
   reportSetting(termId: Float!): ReportSetting!

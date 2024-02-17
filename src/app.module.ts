@@ -8,6 +8,7 @@ import { MultiTermModule } from './muti-evaluation/multi-business-term/multi-ter
 import { MultiEvaluationModule } from './muti-evaluation/multi-evaluation/multi-evaluation.module';
 import { ReportSettingModule } from './muti-evaluation/report-setting/report-setting.module';
 import { UserModule } from './muti-evaluation/user/user.module';
+import { MultiEvaluationQueryModule } from './query/multi-evaluation-query/multi-evaluation-query.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UserModule } from './muti-evaluation/user/user.module';
     MultiTermModule,
     MultiEvaluationModule,
     ReportSettingModule,
+    MultiEvaluationQueryModule,
   ],
 
   // TODO 認証認可実装する
