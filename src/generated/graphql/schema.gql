@@ -44,6 +44,7 @@ type Mutation {
 }
 
 type Query {
+  fetchUsersByIds(ids: [Float!]!): [User!]!
   findMultiEvaluationById(id: Float!): MultiEvaluationQuery
   multiTerms(orederBy: Boolean!, take: Float!): [MulritTerm!]!
   myEvaluatingMultiEvaluations(termId: Float!): [MultiEvaluation!]!
