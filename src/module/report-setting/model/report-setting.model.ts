@@ -1,5 +1,5 @@
 import { ArgsType, Field, ID, InputType, ObjectType } from '@nestjs/graphql';
-import { User } from 'src/muti-evaluation/user/model/user.model';
+import { User } from 'src/module/user/model/user.model';
 import { ReportSettingDetail } from 'src/proto/genrated/multi_evaluation';
 
 @ObjectType('ReportSetting')

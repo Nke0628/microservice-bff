@@ -7,7 +7,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { catchError, lastValueFrom } from 'rxjs';
-import { UserLoader } from 'src/muti-evaluation/user/infrastructure/user.loader';
+import { UserLoader } from 'src/module/user/infrastructure/user.loader';
 import { MultiEvaluationRepository } from '../infrastructure/multi-evaluation.repository';
 import {
   MultiEvaluation,

@@ -6,7 +6,7 @@ import {
 import { catchError, lastValueFrom, of } from 'rxjs';
 import { MultiEvaluationQueryRepository } from '../infrastructure/multi-evaluation-query.repository';
 import { Status } from '@grpc/grpc-js/build/src/constants';
-import { UserLoader } from 'src/muti-evaluation/user/infrastructure/user.loader';
+import { UserLoader } from 'src/module/user/infrastructure/user.loader';
 
 @Resolver(() => MultiEvaluationQuery)
 export class MultiEvaluationQueryResolver {
