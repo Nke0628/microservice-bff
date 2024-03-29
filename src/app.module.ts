@@ -10,6 +10,7 @@ import { MultiEvaluationModule } from './module/multi-evaluation/multi-evaluatio
 import { ReportSettingModule } from './module/report-setting/report-setting.module';
 import { UserModule } from './module/user/user.module';
 import { MultiEvaluationQueryModule } from './module/multi-evaluation-query/multi-evaluation-query.module';
+import { DepartmentModule } from './module/department/department.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { MultiEvaluationQueryModule } from './module/multi-evaluation-query/mult
       isGlobal: true,
     }),
     UserModule,
+    DepartmentModule,
     MultiTermModule,
     MultiEvaluationModule,
     ReportSettingModule,
