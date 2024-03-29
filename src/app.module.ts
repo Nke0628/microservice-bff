@@ -2,6 +2,7 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ConfigModule } from '@nestjs/config';
 import * as path from 'path';
 import { AuthGuard } from './auth/auth.guard';
 import { MultiTermModule } from './module/multi-business-term/multi-term.module';
@@ -16,6 +17,9 @@ import { MultiEvaluationQueryModule } from './module/multi-evaluation-query/mult
       autoSchemaFile: path.join('src/generated/graphql/schema.gql'),
       sortSchema: true,
       driver: ApolloDriver,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
     UserModule,
     MultiTermModule,

@@ -3,9 +3,26 @@ import { MyGrpcModule } from 'src/common/grpc/grpc-client.module';
 import { UserLoader } from './infrastructure/user.loader';
 import { UserRepostitory } from './infrastructure/user.repository';
 import { UserQueryResolver } from './presentation/user-query.resolvers';
+import { UserRepositoryMock } from './infrastructure/user.repository.mock';
+import { ConfigService } from '@nestjs/config';
+import { MyGrpcService } from 'src/common/grpc/grpc-client.service';
 @Module({
   imports: [MyGrpcModule],
-  providers: [UserRepostitory, UserLoader, UserQueryResolver],
+  providers: [
+    UserRepostitory,
+    UserLoader,
+    UserQueryResolver,
+    UserRepositoryMock,
+    {
+      provide: 'UserRepository',
+      useFactory: async (configService: ConfigService, myGrpcService) => {
+        return configService.get<string>('MOCK') === 'true'
+          ? new UserRepositoryMock()
+          : new UserRepostitory(myGrpcService);
+      },
+      inject: [ConfigService, MyGrpcService],
+    },
+  ],
   exports: [UserRepostitory, UserLoader],
 })
 export class UserModule {}

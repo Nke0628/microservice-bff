@@ -1,10 +1,14 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 import { FetchUsersByIdsArgs, User } from '../model/user.model';
-import { UserRepostitory } from '../infrastructure/user.repository';
+import { Inject } from '@nestjs/common';
+import { IUserRepository } from '../infrastructure/user.repository.interface';
 
 @Resolver(() => User)
 export class UserQueryResolver {
-  constructor(private readonly userRepository: UserRepostitory) {}
+  constructor(
+    @Inject('UserRepository')
+    private readonly userRepository: IUserRepository,
+  ) {}
 
   @Query(() => [User], {
     name: 'fetchUsersByIds',
