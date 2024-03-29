@@ -7,7 +7,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { catchError, lastValueFrom } from 'rxjs';
-import { UserRepostitory } from 'src/module/user/infrastructure/user.repository';
+import { UserRepository } from 'src/module/user/infrastructure/user.repository';
 import { ReportSettingepository } from '../infrastructure/report-setting.repository';
 import {
   ReportoSetting,
@@ -18,7 +18,7 @@ import {
 export class ReportoSettingResolver {
   constructor(
     private readonly ReportSettingRepository: ReportSettingepository,
-    private readonly userRepository: UserRepostitory,
+    private readonly userRepository: UserRepository,
   ) {}
 
   @Query(() => ReportoSetting, {

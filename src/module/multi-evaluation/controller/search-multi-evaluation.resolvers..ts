@@ -1,26 +1,15 @@
-import {
-  Args,
-  Mutation,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 import { catchError, lastValueFrom } from 'rxjs';
-import { UserRepostitory } from 'src/module/user/infrastructure/user.repository';
+import { UserRepository } from 'src/module/user/infrastructure/user.repository';
 import { MultiEvaluationRepository } from '../infrastructure/multi-evaluation.repository';
-import {
-  MultiEvaluation,
-  SearchMyEvaluatingMultiEvaluationsArgs,
-  SubmitMultiEvaluationInput,
-} from '../model/multi-evaluation.model';
+import { SearchMyEvaluatingMultiEvaluationsArgs } from '../model/multi-evaluation.model';
 import { SearchMultiEvaluation } from '../model/search-multi-evaluation.model';
 
 @Resolver(() => SearchMultiEvaluation)
 export class SearcgMultiEvaluationResolver {
   constructor(
     private readonly multiEvaluationRepository: MultiEvaluationRepository,
-    private readonly userRepository: UserRepostitory,
+    private readonly userRepository: UserRepository,
   ) {}
 
   @Query(() => SearchMultiEvaluation, {

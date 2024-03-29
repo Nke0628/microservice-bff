@@ -9,7 +9,7 @@ import {
 import { IUserRepository } from './user.repository.interface';
 
 @Injectable()
-export class UserRepostitory implements IUserRepository {
+export class UserRepository implements IUserRepository {
   constructor(private readonly myGrpcService: MyGrpcService) {}
 
   findUserById(req: FindUserByIdRequest): Observable<FindUserByIdResponse> {
