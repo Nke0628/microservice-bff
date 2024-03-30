@@ -12,6 +12,15 @@ export class DepartmentLoader extends BaseBatchLoader<string, Department> {
     super();
   }
   protected async batchLoad(keys: string[]): Promise<(Error | Department)[]> {
-    return await this.departmentRepository.fetchDepartmentByIds(keys);
+    const departments = await this.departmentRepository.fetchDepartmentByIds(
+      keys,
+    );
+    // @see dataloaderの制約上キー順に取得した値を並び替える
+    // https://hireroo.io/journal/tech/dataloader-constraints
+    return keys.map((key) =>
+      departments.find((department) => {
+        return department.id == key;
+      }),
+    );
   }
 }
