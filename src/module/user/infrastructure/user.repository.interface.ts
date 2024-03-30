@@ -1,5 +1,5 @@
-import { User } from 'src/proto/genrated/multi_evaluation';
+import { UserBase } from '../model/user.model';
 
 export interface IUserRepository {
-  fetchUsersByIds(userIds: number[]): Promise<User[]>;
+  fetchUsersByIds(userIds: number[]): Promise<UserBase[]>;
 }

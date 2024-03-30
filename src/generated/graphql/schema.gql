@@ -102,6 +102,8 @@ input SubmitMultiEvaluationInput {
 }
 
 type User {
+  department: Department
+  departmentId: String!
   id: ID!
   name: String!
 }

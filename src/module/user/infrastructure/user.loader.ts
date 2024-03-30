@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BaseBatchLoader } from 'src/util/dataloader';
-import { User } from '../model/user.model';
 import { UserRepository } from './user.repository';
+import { User } from 'src/proto/genrated/multi_evaluation';
 
 @Injectable()
 export class UserLoader extends BaseBatchLoader<number, User> {

@@ -6,8 +6,9 @@ import { UserQueryResolver } from './presentation/user.resolvers';
 import { UserRepositoryMock } from './infrastructure/user.repository.mock';
 import { ConfigService } from '@nestjs/config';
 import { MyGrpcService } from 'src/common/grpc/grpc-client.service';
+import { DepartmentModule } from '../department/department.module';
 @Module({
-  imports: [MyGrpcModule],
+  imports: [MyGrpcModule, DepartmentModule],
   providers: [
     UserRepository,
     UserLoader,
