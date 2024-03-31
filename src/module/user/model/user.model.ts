@@ -1,12 +1,25 @@
 import { ObjectType, Field, ID, ArgsType } from '@nestjs/graphql';
+import { Department } from 'src/module/department/model/department.model';
 
-@ObjectType('User')
+/** Relation Filedを除いた型　*/
+// TODO protoから生成される型を利用するのが理想
+export type UserBase = Omit<User, 'department'>;
+
+@ObjectType()
 export class User {
-  @Field((type) => ID)
+  @Field(() => ID)
   id: number;
 
-  @Field((type) => String)
+  @Field(() => String)
   name: string;
+
+  @Field(() => String)
+  departmentId: string;
+
+  /** Relation Field  */
+  /** 事業部 */
+  @Field(() => Department, { nullable: true })
+  department: Department;
 }
 
 @ArgsType()

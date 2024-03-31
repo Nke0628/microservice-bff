@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { BaseBatchLoader } from 'src/util/dataloader';
-import { User } from '../model/user.model';
-import { UserRepostitory } from './user.repository';
+import { UserRepository } from './user.repository';
+import { User } from 'src/proto/genrated/multi_evaluation';
 
 @Injectable()
 export class UserLoader extends BaseBatchLoader<number, User> {
-  constructor(private readonly userRepository: UserRepostitory) {
+  constructor(private readonly userRepository: UserRepository) {
     super();
   }
   protected async batchLoad(keys: number[]): Promise<(Error | User)[]> {
