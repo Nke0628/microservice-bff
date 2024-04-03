@@ -37,7 +37,7 @@ export class FetchUsersByIdsArgs {
   ids: number[];
 
   @Field(() => [UserType])
-  userTypeSample: UserType[];
+  userType: UserType[];
 }
 
 /** 社員タイプ */

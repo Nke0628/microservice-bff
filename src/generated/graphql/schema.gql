@@ -50,7 +50,7 @@ type Mutation {
 
 type Query {
   fetchDepartmentByIds(ids: [String!]!): [Department!]!
-  fetchUsersByIds(ids: [Float!]!, userTypeSample: [UserType!]!): [User!]!
+  fetchUsersByIds(ids: [Float!]!, userType: [UserType!]!): [User!]!
   findMultiEvaluationById(id: Float!): MultiEvaluationQuery
   multiTerms(orederBy: Boolean!, take: Float!): [MulritTerm!]!
   myEvaluatingMultiEvaluations(termId: Float!): [MultiEvaluation!]!
