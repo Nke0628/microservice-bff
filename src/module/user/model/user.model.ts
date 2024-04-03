@@ -1,4 +1,10 @@
-import { ObjectType, Field, ID, ArgsType } from '@nestjs/graphql';
+import {
+  ObjectType,
+  Field,
+  ID,
+  ArgsType,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { Department } from 'src/module/department/model/department.model';
 
 /** Relation Filedを除いた型　*/
@@ -16,6 +22,9 @@ export class User {
   @Field(() => String)
   departmentId: string;
 
+  @Field(() => UserType)
+  userType: UserType;
+
   /** Relation Field  */
   /** 事業部 */
   @Field(() => Department, { nullable: true })
@@ -26,4 +35,19 @@ export class User {
 export class FetchUsersByIdsArgs {
   @Field(() => [Number])
   ids: number[];
+
+  @Field(() => [UserType])
+  userTypeSample: UserType[];
 }
+
+/** 社員タイプ */
+export const UserType = {
+  EMPLOYEE: 1,
+  PARTNER: 2,
+};
+
+type UserType = (typeof UserType)[keyof typeof UserType];
+
+registerEnumType(UserType, {
+  name: 'UserType',
+});
