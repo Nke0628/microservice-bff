@@ -50,7 +50,7 @@ type Mutation {
 
 type Query {
   fetchDepartmentByIds(ids: [String!]!): [Department!]!
-  fetchUsersByIds(ids: [Float!]!): [User!]!
+  fetchUsersByIds(ids: [Float!]!, userTypeSample: [UserType!]!): [User!]!
   findMultiEvaluationById(id: Float!): MultiEvaluationQuery
   multiTerms(orederBy: Boolean!, take: Float!): [MulritTerm!]!
   myEvaluatingMultiEvaluations(termId: Float!): [MultiEvaluation!]!
@@ -106,4 +106,10 @@ type User {
   departmentId: String!
   id: ID!
   name: String!
+  userType: UserType!
+}
+
+enum UserType {
+  EMPLOYEE
+  PARTNER
 }
