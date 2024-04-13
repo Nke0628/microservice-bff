@@ -17,7 +17,7 @@ export class UserRepository implements IUserRepository {
   }
 
   fetchUsersByIds(userIds: number[]): Promise<UserBase[]> {
-    throw new Error('Method not implemented.');
+    throw new Error('Method not implemented');
   }
 
   // TODO User情報を取得する

@@ -24,6 +24,6 @@ import { DepartmentModule } from '../department/department.module';
       inject: [ConfigService, MyGrpcService],
     },
   ],
-  exports: [UserRepository, UserLoader],
+  exports: [UserRepository, UserRepositoryMock, UserLoader],
 })
 export class UserModule {}

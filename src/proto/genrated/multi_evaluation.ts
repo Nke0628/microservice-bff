@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
+import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { Observable } from "rxjs";
 
-export const protobufPackage = 'multi_evaluation.v1';
+export const protobufPackage = "microservice_backend.v1";
 
 export enum ApplyStatus {
   UNAPPLIED = 0,
@@ -184,36 +184,26 @@ export interface SearchMultiEvaluationResponse {
   data: MultiEvaluation[];
 }
 
-export const MULTI_EVALUATION_V1_PACKAGE_NAME = 'multi_evaluation.v1';
+export const MICROSERVICE_BACKEND_V1_PACKAGE_NAME = "microservice_backend.v1";
 
 export interface MultiEvaluationServiceClient {
   /** MultiTerm */
 
-  fetchMultiTermAll(
-    request: FetchMultiTermAllRequest,
-  ): Observable<FetchMultiTermAllResponse>;
+  fetchMultiTermAll(request: FetchMultiTermAllRequest): Observable<FetchMultiTermAllResponse>;
 
   /** MultiEvaluation */
 
-  fetchByTermIdAndUserId(
-    request: FetchByTermIdAndUserIdRequst,
-  ): Observable<FetchByTermIdAndUserIdResponse>;
+  fetchByTermIdAndUserId(request: FetchByTermIdAndUserIdRequst): Observable<FetchByTermIdAndUserIdResponse>;
 
-  searchMultiEvaluation(
-    request: SearchMultiEvaluationRequest,
-  ): Observable<SearchMultiEvaluationResponse>;
+  searchMultiEvaluation(request: SearchMultiEvaluationRequest): Observable<SearchMultiEvaluationResponse>;
 
-  submitMultiEvaluation(
-    request: SubmitMultiEvaluationRequest,
-  ): Observable<SubmitMultiEvaluationResponse>;
+  submitMultiEvaluation(request: SubmitMultiEvaluationRequest): Observable<SubmitMultiEvaluationResponse>;
 
   /** User */
 
   findUserById(request: FindUserByIdRequest): Observable<FindUserByIdResponse>;
 
-  fetchUsersByIds(
-    request: FetchUsersByIdsRequest,
-  ): Observable<FetchUsersByIdsResponse>;
+  fetchUsersByIds(request: FetchUsersByIdsRequest): Observable<FetchUsersByIdsResponse>;
 
   /** NormaApply */
 
@@ -227,9 +217,7 @@ export interface MultiEvaluationServiceClient {
     request: FetchReportSettingsByTermIdRequest,
   ): Observable<FetchReportSettingsByTermIdResponse>;
 
-  registerReportSettings(
-    request: RegisterReportSettingsRequest,
-  ): Observable<RegisterReportSettingsResponse>;
+  registerReportSettings(request: RegisterReportSettingsRequest): Observable<RegisterReportSettingsResponse>;
 }
 
 export interface MultiEvaluationServiceController {
@@ -237,10 +225,7 @@ export interface MultiEvaluationServiceController {
 
   fetchMultiTermAll(
     request: FetchMultiTermAllRequest,
-  ):
-    | Promise<FetchMultiTermAllResponse>
-    | Observable<FetchMultiTermAllResponse>
-    | FetchMultiTermAllResponse;
+  ): Promise<FetchMultiTermAllResponse> | Observable<FetchMultiTermAllResponse> | FetchMultiTermAllResponse;
 
   /** MultiEvaluation */
 
@@ -253,42 +238,27 @@ export interface MultiEvaluationServiceController {
 
   searchMultiEvaluation(
     request: SearchMultiEvaluationRequest,
-  ):
-    | Promise<SearchMultiEvaluationResponse>
-    | Observable<SearchMultiEvaluationResponse>
-    | SearchMultiEvaluationResponse;
+  ): Promise<SearchMultiEvaluationResponse> | Observable<SearchMultiEvaluationResponse> | SearchMultiEvaluationResponse;
 
   submitMultiEvaluation(
     request: SubmitMultiEvaluationRequest,
-  ):
-    | Promise<SubmitMultiEvaluationResponse>
-    | Observable<SubmitMultiEvaluationResponse>
-    | SubmitMultiEvaluationResponse;
+  ): Promise<SubmitMultiEvaluationResponse> | Observable<SubmitMultiEvaluationResponse> | SubmitMultiEvaluationResponse;
 
   /** User */
 
   findUserById(
     request: FindUserByIdRequest,
-  ):
-    | Promise<FindUserByIdResponse>
-    | Observable<FindUserByIdResponse>
-    | FindUserByIdResponse;
+  ): Promise<FindUserByIdResponse> | Observable<FindUserByIdResponse> | FindUserByIdResponse;
 
   fetchUsersByIds(
     request: FetchUsersByIdsRequest,
-  ):
-    | Promise<FetchUsersByIdsResponse>
-    | Observable<FetchUsersByIdsResponse>
-    | FetchUsersByIdsResponse;
+  ): Promise<FetchUsersByIdsResponse> | Observable<FetchUsersByIdsResponse> | FetchUsersByIdsResponse;
 
   /** NormaApply */
 
   findManagerNormaApplyByUserIdAndTermId(
     request: FindManagerNormaApplyRequest,
-  ):
-    | Promise<FindManagerNormaApplyResponse>
-    | Observable<FindManagerNormaApplyResponse>
-    | FindManagerNormaApplyResponse;
+  ): Promise<FindManagerNormaApplyResponse> | Observable<FindManagerNormaApplyResponse> | FindManagerNormaApplyResponse;
 
   /** ReportSetting */
 
@@ -310,40 +280,26 @@ export interface MultiEvaluationServiceController {
 export function MultiEvaluationServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
-      'fetchMultiTermAll',
-      'fetchByTermIdAndUserId',
-      'searchMultiEvaluation',
-      'submitMultiEvaluation',
-      'findUserById',
-      'fetchUsersByIds',
-      'findManagerNormaApplyByUserIdAndTermId',
-      'fetchReportSettingsByTermId',
-      'registerReportSettings',
+      "fetchMultiTermAll",
+      "fetchByTermIdAndUserId",
+      "searchMultiEvaluation",
+      "submitMultiEvaluation",
+      "findUserById",
+      "fetchUsersByIds",
+      "findManagerNormaApplyByUserIdAndTermId",
+      "fetchReportSettingsByTermId",
+      "registerReportSettings",
     ];
     for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcMethod('MultiEvaluationService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcMethod("MultiEvaluationService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcStreamMethod('MultiEvaluationService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcStreamMethod("MultiEvaluationService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const MULTI_EVALUATION_SERVICE_NAME = 'MultiEvaluationService';
+export const MULTI_EVALUATION_SERVICE_NAME = "MultiEvaluationService";

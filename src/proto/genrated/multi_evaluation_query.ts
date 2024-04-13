@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
+import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { Observable } from "rxjs";
 
-export const protobufPackage = 'multi_evaluation.v1';
+export const protobufPackage = "microservice_backend.v1";
 
 export interface FindMultiEvaluationByIdRequest {
   /** 360度評価ID */
@@ -30,14 +30,12 @@ export interface FindMultiEvaluationByIdResponse {
   updatedAt: string;
 }
 
-export const MULTI_EVALUATION_V1_PACKAGE_NAME = 'multi_evaluation.v1';
+export const MICROSERVICE_BACKEND_V1_PACKAGE_NAME = "microservice_backend.v1";
 
 export interface MultiEvaluationQueryServiceClient {
   /** 360度評価取得 */
 
-  findMultiEvaluationById(
-    request: FindMultiEvaluationByIdRequest,
-  ): Observable<FindMultiEvaluationByIdResponse>;
+  findMultiEvaluationById(request: FindMultiEvaluationByIdRequest): Observable<FindMultiEvaluationByIdResponse>;
 }
 
 export interface MultiEvaluationQueryServiceController {
@@ -53,32 +51,17 @@ export interface MultiEvaluationQueryServiceController {
 
 export function MultiEvaluationQueryServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ['findMultiEvaluationById'];
+    const grpcMethods: string[] = ["findMultiEvaluationById"];
     for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcMethod('MultiEvaluationQueryService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcMethod("MultiEvaluationQueryService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcStreamMethod('MultiEvaluationQueryService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcStreamMethod("MultiEvaluationQueryService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const MULTI_EVALUATION_QUERY_SERVICE_NAME =
-  'MultiEvaluationQueryService';
+export const MULTI_EVALUATION_QUERY_SERVICE_NAME = "MultiEvaluationQueryService";
