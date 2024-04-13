@@ -1,5 +1,9 @@
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { FetchUsersByIdsArgs, User } from '../model/user.model';
+import {
+  FetchUsersByIdsArgs,
+  FetchUsersBySearchCondition,
+  User,
+} from '../model/user.model';
 import { Inject } from '@nestjs/common';
 import { IUserRepository } from '../infrastructure/user.repository.interface';
 import { DepartmentLoader } from 'src/module/department/infrastructure/department.loader';
@@ -17,6 +21,15 @@ export class UserQueryResolver {
   })
   async fetchUsersByIds(@Args() ids: FetchUsersByIdsArgs) {
     return await this.userRepository.fetchUsersByIds(ids.ids);
+  }
+
+  @Query(() => [User], {
+    name: 'fetchUsersBySearchCondition',
+  })
+  async fetchUsersBySearchCondition(
+    @Args() searchCondition: FetchUsersBySearchCondition,
+  ) {
+    return await this.userRepository.fetchUsersByIds([1, 2]);
   }
 
   @ResolveField()

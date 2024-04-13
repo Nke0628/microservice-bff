@@ -40,6 +40,24 @@ export class FetchUsersByIdsArgs {
   userType: UserType[];
 }
 
+@ArgsType()
+export class FetchUsersBySearchCondition {
+  @Field(() => String)
+  keyword: string;
+
+  @Field(() => Number)
+  limit: number;
+
+  @Field(() => Number)
+  offset: number;
+
+  @Field(() => String)
+  sortField: string;
+
+  @Field(() => Number)
+  sortOrder: number;
+}
+
 /** 社員タイプ */
 export const UserType = {
   EMPLOYEE: 1,
