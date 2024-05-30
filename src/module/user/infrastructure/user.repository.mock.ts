@@ -11,13 +11,13 @@ export class UserRepositoryMock implements IUserRepository {
         id: i + 1,
         name: faker.internet.userName(),
         departmentId: 'S' + (i + 1),
-        userType: UserType.EMPLOYEE,
+        userType: [UserType.EMPLOYEE],
       }));
       mockData.push({
         id: 101,
         name: faker.internet.userName(),
         departmentId: '',
-        userType: UserType.EMPLOYEE,
+        userType: [UserType.PARTNER],
       });
       const filteredMockData = mockData.filter((user) =>
         userIds.includes(user.id),

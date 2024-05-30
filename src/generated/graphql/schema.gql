@@ -107,10 +107,14 @@ type User {
   departmentId: String!
   id: ID!
   name: String!
-  userType: UserType!
+  userType: [UserType!]!
 }
 
+"""The supported colors."""
 enum UserType {
+  """EMPLOYEE"""
   EMPLOYEE
+
+  """PARTNER"""
   PARTNER
 }

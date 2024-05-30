@@ -21,14 +21,7 @@ export class MultiEvaluationQueryResolver {
   })
   async findMyEvaluationById(@Args() arg: FindMyEvaluationByIdArgs) {
     const data = await lastValueFrom(
-      this.multiEvaluationQueryRepository.fetchMultiEvaluationById(arg).pipe(
-        catchError((e) => {
-          if (e.code === Status.NOT_FOUND) {
-            return of(null);
-          }
-          throw e;
-        }),
-      ),
+      this.multiEvaluationQueryRepository.fetchMultiEvaluationById(arg),
     );
     // NOT_FOUNDの場合はnullとして扱う
     if (data === null) {

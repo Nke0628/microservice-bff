@@ -22,8 +22,8 @@ export class User {
   @Field(() => String)
   departmentId: string;
 
-  @Field(() => UserType)
-  userType: UserType;
+  @Field((type) => [UserType])
+  userType: UserType[];
 
   /** Relation Field  */
   /** 事業部 */
@@ -59,13 +59,22 @@ export class FetchUsersBySearchCondition {
 }
 
 /** 社員タイプ */
-export const UserType = {
-  EMPLOYEE: 1,
-  PARTNER: 2,
-};
+export enum UserType {
+  EMPLOYEE,
+  PARTNER,
+}
 
-type UserType = (typeof UserType)[keyof typeof UserType];
+// export type UserType = (typeof UserType)[keyof typeof UserType];
 
 registerEnumType(UserType, {
   name: 'UserType',
+  description: 'The supported colors.',
+  valuesMap: {
+    EMPLOYEE: {
+      description: 'EMPLOYEE',
+    },
+    PARTNER: {
+      description: 'PARTNER',
+    },
+  },
 });
