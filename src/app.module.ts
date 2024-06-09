@@ -11,6 +11,7 @@ import { ReportSettingModule } from './module/report-setting/report-setting.modu
 import { UserModule } from './module/user/user.module';
 import { MultiEvaluationQueryModule } from './module/multi-evaluation-query/multi-evaluation-query.module';
 import { DepartmentModule } from './module/department/department.module';
+import { CsvExportModule } from './module/csv-export/csv-export.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { DepartmentModule } from './module/department/department.module';
     MultiEvaluationModule,
     ReportSettingModule,
     MultiEvaluationQueryModule,
+    CsvExportModule,
   ],
 
   // TODO 認証認可実装する
