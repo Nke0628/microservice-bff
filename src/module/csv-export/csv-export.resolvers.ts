@@ -10,11 +10,8 @@ export class CsvExportResolver {
   async csvExport() {
     function generateCSVData(numRows, numCols) {
       const rows = [];
-      const headers = [];
-      // ヘッダー行の生成
-      for (let i = 0; i < numCols; i++) {
-        headers.push(`Column ${i + 1}`);
-      }
+      // ヘッダー
+      const headers = ['社員ID', '氏名', '事業部', '部署', 'チーム', '役職'];
       rows.push(headers.join(','));
       // データ行の生成
       for (let i = 0; i < numRows; i++) {
